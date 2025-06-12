@@ -2,14 +2,18 @@ import React from "react";
 import "./App.css";
 
 function App() {
+  //this wrapping of multiple div, inside <></> is called react-fragments
   return (
-    <div>
-      <ErrorBoundary>
-        <Card1 />
-      </ErrorBoundary>
-      <br />
-      <Card2 />
-    </div>
+    <>
+      <div>header div</div>
+      <div>
+        <ErrorBoundary>
+          <Card1 />
+        </ErrorBoundary>
+        <br />
+        <Card2 />
+      </div>
+    </>
   );
 }
 
