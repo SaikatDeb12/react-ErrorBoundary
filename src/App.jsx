@@ -1,9 +1,12 @@
+import React from "react";
 import "./App.css";
 
 function App() {
   return (
     <div>
-      <Card1 />
+      <ErrorBoundary>
+        <Card1 />
+      </ErrorBoundary>
       <br />
       <Card2 />
     </div>
@@ -11,7 +14,8 @@ function App() {
 }
 
 function Card1() {
-  // throw new Error("something wrong"),
+  //here in the line division line..
+  //because of the error boundary, shows "Something went wrong" message
   return (
     <div
       style={{
@@ -21,7 +25,7 @@ function Card1() {
         backgroundColor: "gray",
       }}
     >
-      Hi there
+      Hi there, division result is: {23 / a}
     </div>
   );
 }
@@ -40,5 +44,27 @@ const Card2 = () => {
     </div>
   );
 };
+
+class ErrorBoundary extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { hasError: false };
+  }
+
+  static getDerivedStateFromError(error) {
+    return { hasError: true };
+  }
+
+  componentDidCatch(error, info) {
+    console.error("error caught: ", error, info);
+  }
+
+  render() {
+    if (this.state.hasError) {
+      return <p>Something went wrong!</p>;
+    }
+    return this.props.children;
+  }
+}
 
 export default App;
